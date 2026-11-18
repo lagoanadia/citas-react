@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# 🩺 Citas React
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A React + TypeScript exercise for modelling medical appointments (*citas*) as components with typed props and state. **Work in progress.**
 
-Currently, two official plugins are available:
+## 📁 Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```
+src/
+├── App.tsx            → Root component (will render the list of appointments)
+├── dominio/
+│   └── Cita.tsx       → Appointment component and its data model
+├── App.css / index.css → Styles
+└── main.tsx           → React entry point
+```
 
-## React Compiler
+## 🚀 How It Works
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Each appointment is described by a `CitaData` interface:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
+```ts
+interface CitaData {
+  hora: string;
+  paciente: string;
+  especialidad: string;
+  urgente?: boolean;
+  compacta?: boolean;
+  seleccionada?: boolean;
 }
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+The `Cita` component keeps one `useState` per field, so it can later toggle *urgent*, *compact* view and *selected* states from the UI.
+
+### Current status
+
+The data model and state are in place; the JSX rendering and the list in `App.tsx` are still to be done.
+
+## 🧠 Key Concepts
+
+- **TypeScript interfaces** — required vs optional (`?`) fields
+- **`useState`** — one state variable per field
+- **Folder by domain** — `dominio/` holds the business entities
+
+## 🛠️ How To Run
+
+```bash
+npm install
+npm run dev
+```
